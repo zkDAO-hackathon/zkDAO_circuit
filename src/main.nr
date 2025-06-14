@@ -6,35 +6,35 @@ fn main(
     _secret: Field,
     _voter: Field,
     _weight: pub Field,
-    _choice: pub i8,
 
     _snapshot_merkle_tree: pub Field,
     _leaf: Field,
     _index: Field,
-    _path: [Field; 3],
+    _path: [Field; 2],
 
     _pub_key_x: [u8; 32],
     _pub_key_y: [u8; 32],
     _signature: [u8; 64],
     _hashed_message: [u8; 32],
-) -> pub Field { 
-    let nullfier = poseidon::bn254::hash_2([_secret, _proposalId]);
-    let hash = poseidon::bn254::hash_3([_voter, _weight, nullfier]);
-    assert(hash == _leaf, "Mismatch hashes");    
-    assert(_choice <= 2, "Choice out of range");
+) -> pub Field {
+    let nullifier = poseidon::bn254::hash_2([_secret, _proposalId]);
+
+    let hash = poseidon::bn254::hash_3([_voter, _weight, nullifier]);
+    assert(hash == _leaf, "Mismatch hashes");
+
     assert(verify_merkle_tree(_snapshot_merkle_tree, _leaf, _index, _path));
 
     let address = ecrecover::ecrecover(_pub_key_x, _pub_key_y, _signature, _hashed_message);
     assert(address == _voter);
 
-    nullfier
+    nullifier
 }
 
 fn verify_merkle_tree(
     expected_root: Field,
     leaf: Field,
     index: Field,
-    path: [Field; 3]
+    path: [Field; 2]
 ) -> bool {
     let root = std::merkle::compute_merkle_root(leaf, index, path);
     root == expected_root
