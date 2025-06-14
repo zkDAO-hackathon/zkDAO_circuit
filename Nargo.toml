@@ -1,6 +1,11 @@
 [package]
 name = "zkDAO_circuit"
 type = "bin"
-authors = [""]
+authors = ["salviega"]
+compiler_version = "1.0.0"
+description = "zkDAO Circuit"
+entry = "src/main.nr"
+license = "MIT"
 
 [dependencies]
+ecrecover = { tag = "v0.30.0", git = "https://github.com/colinnielsen/ecrecover-noir" }
