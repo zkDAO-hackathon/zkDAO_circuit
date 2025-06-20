@@ -26,13 +26,6 @@ Update to the latest version:
 noirup
 ```
 
-Start by creating a new Noir project:
-
-```bash
-nargo new zk_hangman
-cd zk_hangman
-```
-
 Compile the circuit:
 
 ```bash
