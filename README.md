@@ -35,7 +35,7 @@ nargo compile
 Generate the verification key:
 
 ```bash
-bb write_vk -b ./target/zkDao_circuit.json -o ./target --oracle_hash keccak
+bb write_vk -b ./target/zkDAO_circuit.json -o ./target --oracle_hash keccak
 ```
 
 Generate the Solidity verifier contract:
